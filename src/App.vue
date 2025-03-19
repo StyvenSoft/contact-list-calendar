@@ -1,17 +1,22 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import Search from './components/Search.vue'
+import SearchContact from './components/SearchContact.vue'
 import ContactTable from './components/ContactTable.vue'
+import { getAllContacts } from './services/ContactAPISimulation'
 
 const titlePage = 'Agenda - Lista de contactos'
+const listContacts = getAllContacts()
+
 </script>
 
 <template>
   <div class="flex items-center flex-col py-5">
     <h1>{{ titlePage }}</h1>
-    <Search />
+    <search-contact />
   </div>
-  <ContactTable />
+  <contact-table
+    title="Lista de resultados"
+    :list-contact="listContacts"  
+  />
 </template>
 
 <style scoped>
