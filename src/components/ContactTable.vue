@@ -1,5 +1,5 @@
 <script setup>
-  const props = defineProps({
+const props = defineProps({
     title: {
         type: String,
         default: 'list',
@@ -8,7 +8,7 @@
         type: Array,
         default: []
     }
-  })
+})
 </script>
 
 <template>
@@ -34,7 +34,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="contact in listContact" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                <tr v-for="contact in listContact"
+                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ contact.id }}
                     </th>
@@ -48,10 +49,9 @@
                         {{ contact.email }}
                     </td>
                     <td class="px-6 py-4">
-                       <a href="#" class="py-2 px-4 bg-purple-900 rounded-full">Editar</a> 
+                        <a href="#" class="py-2 px-4 bg-purple-900 rounded-full">Editar</a>
                     </td>
                 </tr>
-                
             </tbody>
         </table>
     </div>
