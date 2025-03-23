@@ -10,12 +10,23 @@ const clearList = () => {
   listContacts.value = []
 }
 
+const filterListContact = (kword) => {
+  if (kword.trim() === '') {
+    listContacts.value = getAllContacts()
+  }
+  listContacts.value = listContacts.value.filter(
+    (contact) => {
+      return contact.name.toLowerCase().includes(kword.toLowerCase())
+    }
+  )
+}
+
 </script>
 
 <template>
   <div class="flex items-center flex-col py-5">
     <h1>{{ titlePage }}</h1>
-    <search-contact :listContact="listContacts" />
+    <search-contact :listContact="listContacts" @filterContact="filterListContact" />
   </div>
   <contact-table title="Lista de resultados" :list-contact="listContacts" />
   <div class="pb-5 flex justify-center">
