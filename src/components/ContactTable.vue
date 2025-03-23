@@ -1,4 +1,6 @@
 <script setup>
+import BtnDelete from './BtnDelete.vue';
+
 const props = defineProps({
     title: {
         type: String,
@@ -48,8 +50,9 @@ const props = defineProps({
                     <td class="px-6 py-4">
                         {{ contact.email }}
                     </td>
-                    <td class="px-6 py-4">
-                        <a href="#" class="py-2 px-4 bg-purple-900 rounded-full">Editar</a>
+                    <td class="px-6 py-4 flex items-center">
+                        <a href="#" class="py-2 px-4 mx-4 bg-purple-900 rounded-full">Editar</a>
+                        <BtnDelete />
                     </td>
                 </tr>
             </tbody>
