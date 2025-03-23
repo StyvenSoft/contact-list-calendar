@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue';
 import BtnDelete from './BtnDelete.vue';
 
 const props = defineProps({
@@ -11,11 +12,17 @@ const props = defineProps({
         default: []
     }
 })
+
+const totalReward = computed(() => {
+    return props.listContact.reduce(
+        (accumulator, contact) => accumulator + contact.recompensa, 0
+    )
+})
 </script>
 
 <template>
     <div class="relative overflow-x-auto mb-8">
-        <h3 class="text-xl my-3">{{ title }}</h3>
+        <h3 class="text-xl my-3">{{ title }} - {{ totalReward }}</h3>
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -30,6 +37,9 @@ const props = defineProps({
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Correo
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Reward
                     </th>
                     <th scope="col" class="px-6 py-3">
                     </th>
@@ -49,6 +59,9 @@ const props = defineProps({
                     </td>
                     <td class="px-6 py-4">
                         {{ contact.email }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ contact.recompensa }}
                     </td>
                     <td class="px-6 py-4 flex items-center">
                         <a href="#" class="py-2 px-4 mx-4 bg-purple-900 rounded-full">Editar</a>
