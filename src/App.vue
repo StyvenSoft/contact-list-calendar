@@ -2,19 +2,19 @@
 import SearchContact from './components/SearchContact.vue'
 import ContactTable from './components/ContactTable.vue'
 import { getAllContacts } from './services/ContactAPISimulation'
-import { ref } from 'vue'
+import { useListContacts } from './composables/useListContacts'
 
-const listContacts = ref(getAllContacts())
+const { contactList } = useListContacts()
 const titlePage = 'Agenda - Lista de contactos'
 const clearList = () => {
-  listContacts.value = []
+  contactList.value = []
 }
 
 const filterListContact = (kword) => {
   if (kword.trim() === '') {
-    listContacts.value = getAllContacts()
+    contactList.value = getAllContacts()
   }
-  listContacts.value = listContacts.value.filter(
+  contactList.value = contactList.value.filter(
     (contact) => {
       return contact.name.toLowerCase().includes(kword.toLowerCase())
     }
@@ -26,9 +26,9 @@ const filterListContact = (kword) => {
 <template>
   <div class="flex items-center flex-col py-5">
     <h1>{{ titlePage }}</h1>
-    <search-contact :listContact="listContacts" @filterContact="filterListContact" />
+    <search-contact @filterContact="filterListContact" />
   </div>
-  <contact-table title="Lista de resultados" :list-contact="listContacts" />
+  <contact-table title="Lista de resultados" />
   <div class="pb-5 flex justify-center">
     <button class="bg-blue-500 py-1.5 px-5" @click="clearList()">Limpiar lista</button>
   </div>

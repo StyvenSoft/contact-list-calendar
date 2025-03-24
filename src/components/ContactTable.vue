@@ -1,20 +1,23 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, watchEffect } from 'vue';
 import BtnDelete from './BtnDelete.vue';
+import { useListContacts } from '../composables/useListContacts';
 
 const props = defineProps({
     title: {
         type: String,
         default: 'list',
-    },
-    listContact: {
-        type: Array,
-        default: []
     }
 })
 
+const { contactList, messageEmpy, showEmpy } = useListContacts()
+
+watchEffect(() => {
+    showEmpy('No se encontraron resultados')
+})
+
 const totalReward = computed(() => {
-    return props.listContact.reduce(
+    return contactList.value.reduce(
         (accumulator, contact) => accumulator + contact.recompensa, 0
     )
 })
@@ -46,7 +49,7 @@ const totalReward = computed(() => {
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="contact in listContact"
+                <tr v-for="contact in contactList"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ contact.id }}
@@ -70,5 +73,6 @@ const totalReward = computed(() => {
                 </tr>
             </tbody>
         </table>
+        <p class="text-red-700 my-3">{{ messageEmpy }}</p>
     </div>
 </template>

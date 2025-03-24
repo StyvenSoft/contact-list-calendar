@@ -1,9 +1,6 @@
 <script setup>
 import { reactive, ref } from 'vue';
-
-const props = defineProps({
-  listContac: Array
-})
+import { useListContacts } from '../composables/useListContacts';
 
 const emit = defineEmits(['filterContact'])
 
@@ -16,6 +13,8 @@ const styleButton = reactive({
 
 const kword = ref('')
 
+const { messageEmpy, showEmpy } = useListContacts()
+
 const isFocus = () => {
   // bgButton = 'blue'
   styleButton['border-radius'] = '10px',
@@ -23,6 +22,7 @@ const isFocus = () => {
 }
 
 const filterData = () => {
+  showEmpy('(Pruebe con otra palabra)')
   emit('filterContact', kword.value)
 }
 
@@ -45,6 +45,5 @@ const filterData = () => {
       </button>
     </div>
   </div>
+  <p class="text-red-500 my-3">{{ messageEmpy }}</p>
 </template>
-
-<style scoped></style>
